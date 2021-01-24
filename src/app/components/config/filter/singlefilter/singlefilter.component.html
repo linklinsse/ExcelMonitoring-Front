@@ -1,0 +1,53 @@
+<div class="main-div col">
+
+    <mat-form-field class="w-100 my-label">
+        <mat-label>Col Name</mat-label>
+        <input matInput type="text" [(ngModel)]="filter.label" [formControl]="headerController" [matAutocomplete]="headAuto">
+        <mat-autocomplete autoActiveFirstOption #headAuto="matAutocomplete">
+            <mat-option *ngFor="let option of headerAutocomplete | async" [value]="option">
+                {{option}}
+            </mat-option>
+        </mat-autocomplete>
+    </mat-form-field>
+
+    <mat-form-field class="w-100">
+        <mat-label>Type</mat-label>
+        <mat-select [(ngModel)]="filter.type">
+            <mat-option *ngFor="let type of filterAllTypes" [value]="type">
+                {{filterType[type]}}
+            </mat-option>
+        </mat-select>
+    </mat-form-field>
+
+    <ng-template ngFor let-filter [ngForOf]="filter.filter" let-i="index">
+        <div class="list-filter-element">
+            <label mat-label class="w-75 my-filter-label">{{filter}}</label>
+            <button mat-mini-fab color="primary" class="w-25" (click)="removeFilter(filter)">
+                <mat-icon>delete</mat-icon>
+            </button>
+        </div>
+    </ng-template>
+
+    <mat-form-field class="w-100">
+        <mat-label>New Filter</mat-label>
+        <input matInput type="text" [(ngModel)]="newFilterValue" [formControl]="filterController" [matAutocomplete]="filterAuto">
+        <mat-autocomplete autoActiveFirstOption #filterAuto="matAutocomplete">
+
+            <mat-option *ngIf="filterAutoIsLoading">
+                Loading...
+                <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+            </mat-option>
+
+            <ng-container *ngIf="!filterAutoIsLoading && newFilterValue && newFilterValue.length > 3">
+                <mat-option *ngFor="let option of filterAutocomplete" [value]="option">
+                    {{option}}
+                </mat-option>
+            </ng-container>
+
+        </mat-autocomplete>
+        <button matSuffix mat-button (click)="addFilter()">
+            <mat-icon>add</mat-icon>
+        </button>
+    </mat-form-field>
+
+</div>

@@ -1,0 +1,17 @@
+<div class="row m-0 filter-div">
+
+    <ng-template ngFor let-filter [ngForOf]="filters">
+        <div class="col singlefilter-div">
+
+            <button mat-button color="error" class="w-100" (click)="removeFilter(filter)">
+                <mat-icon>delete</mat-icon>
+            </button>
+
+            <app-singlefilter [filter]=filter></app-singlefilter>
+
+        </div>
+    </ng-template>
+
+    <button mat-button (click)="addFilter()"><mat-icon>add</mat-icon></button>
+    <button mat-button (click)="saveFilter()"><mat-icon>save</mat-icon></button>
+</div>

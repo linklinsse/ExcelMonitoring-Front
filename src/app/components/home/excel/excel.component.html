@@ -1,0 +1,21 @@
+<div *ngIf="!loading && !error" class="table-div">
+    <table mat-table [dataSource]="tabData" class="mat-elevation-z8 w-100">
+
+        <div *ngFor="let column of tabHeader" [matColumnDef]="column">
+            <th mat-header-cell *matHeaderCellDef> {{column}} </th>
+            <td mat-cell *matCellDef="let element"> {{element[column]}} </td>
+        </div>
+
+        <tr mat-header-row *matHeaderRowDef="tabHeader"></tr>
+        <tr mat-row *matRowDef="let row; columns: tabHeader;"></tr>
+
+    </table>
+</div>
+
+<div *ngIf="loading" class="spinner-div">
+    <mat-spinner></mat-spinner>
+</div>
+
+<div *ngIf="error" class="label-div">
+    <mat-label>{{error}}</mat-label>
+</div>
